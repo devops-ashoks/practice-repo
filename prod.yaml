@@ -1,0 +1,34 @@
+Got it, mithrama 🌟 — let’s start with a clean, practical Kubernetes Deployment file. I’ll give you a step-by-step YAML that you can adapt for any microservice (say, clinic-admin), keeping it reproducible and error-free.
+Here’s a template:
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clinic-admin-deployment
+  labels:
+    app: clinic-admin
+spec:
+  replicas: 3   # number of pods you want
+  selector:
+    matchLabels:
+      app: clinic-admin
+  template:
+    metadata:
+      labels:
+        app: clinic-admin
+    spec:
+      containers:
+        - name: clinic-admin
+          image: your-dockerhub-username/clinic-admin:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: prod
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "512Mi"
+            limits:
+              cpu: "500m"
+              memory: "1Gi"
+      restartPolicy: Always
